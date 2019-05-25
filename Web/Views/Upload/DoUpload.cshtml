@@ -1,0 +1,30 @@
+﻿@using Web.Controllers
+@model Adaptive_educational_application.Adaptive_educational_application
+@{
+    ViewBag.Title = "Learnis " + Model.UserName;
+    Layout = "_Layout";
+}
+<h2>Learnis @Model.UserName</h2>
+
+@Model.Suggestion_for_improvements
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <td>Предметная область</td>
+            <td>Пожелания</td>
+            <td>На что сделать ссылку</td>
+            <td>Что добавить в приложение</td>
+        </tr>
+    </thead>
+    @foreach (var sm in Model.Journal)
+    {
+        < tr >
+        <td>@sm.Subject_Area</td>
+        <td>@sm.Wishes</td>
+        <td>@sm.Proposed_link</td>
+        <td>@sm.Add_to_application</td>
+        </ tr >
+    }
+</table>
+
