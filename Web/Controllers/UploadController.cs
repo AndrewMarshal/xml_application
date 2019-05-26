@@ -17,6 +17,19 @@ namespace Adaptive_application_Web.Controllers
 {
     public class UploadController : Controller
     {
+        public static string ToStringJury(List<string> juri)
+        {
+
+            string stroka = "";
+            foreach (var e in juri)
+            {
+                stroka = stroka + e;
+                stroka += ", ";
+            }
+
+            return stroka;
+        }
+
         // GET: Upload
         public ActionResult Index()
         {

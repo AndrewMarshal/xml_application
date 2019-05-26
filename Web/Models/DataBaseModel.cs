@@ -14,7 +14,10 @@ namespace Web.Models
     {
         public class AdaptiveApplicationDbContext : DbContext
         {
-            public AdaptiveApplicationDbContext() => Database.EnsureCreated();
+            public AdaptiveApplicationDbContext()
+            { 
+                Database.EnsureCreated();
+            }
 
             public AdaptiveApplicationDbContext(DbContextOptions<AdaptiveApplicationDbContext> options) : base(options)
             {
@@ -26,7 +29,7 @@ namespace Web.Models
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseNpgsql(AdaptiveApplicationDbContext.ConnectionString);
+                optionsBuilder.UseNpgsql(ConnectionString);
 
                 base.OnConfiguring(optionsBuilder);
             }
@@ -35,16 +38,18 @@ namespace Web.Models
         public class DBAdaptive_educational_application
         {
             [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public string User { get; set; }
+            [ForeignKey("User")]
             /// <summary>
             /// поле регистрации
             /// </summary>
             /// <returns></returns>
-            public Registration Registration { get; set; }
+            public DBRegistration Registration { get; set; }
             /// <summary>
             /// предметные области
             /// </summary>
             /// <returns></returns>
-            public Subject_Areas Subject_Areas { get; set; }
+            public DBSubject_Areas Subject_Areas { get; set; }
             /// <summary>
             /// картинка пользователя в соответствии с его уровнем
             /// </summary>
@@ -54,11 +59,11 @@ namespace Web.Models
             /// Текущий уровень пользователя
             /// </summary>
             /// <returns></returns>
-            public Curent_User_Level Curent_User_Level { get; set; }
+            public DBCurent_User_Level Curent_User_Level { get; set; }
             /// <summary>
             /// Ссылки на учебники
             /// </summary>
-            public LinksTutorials LinksTutorials { get; set; }
+            public DBLinksTutorials LinksTutorials { get; set; }
             /// <summary>
             /// Жунрал пожеланий
             /// </summary>
@@ -77,8 +82,9 @@ namespace Web.Models
         /// <summary>
         /// Поле регистрации
         /// </summary>
-        public class Registration
+        public class DBRegistration
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             /// <summary>
             /// Логин пользователя
             /// </summary>
@@ -103,15 +109,12 @@ namespace Web.Models
             /// Пол пользователя
             /// </summary>
             public bool UserGender { get; set; }
-
-            [ForeignKey("UserNameId")]
-            public virtual DBAdaptive_educational_application UserName { get; set; }
         }
 
         /// <summary>
         /// Предметные области
         /// </summary>
-        public enum Subject_Areas
+        public enum DBSubject_Areas
         {
             /// <summary>
             /// Музыка
@@ -134,8 +137,9 @@ namespace Web.Models
         /// <summary>
         /// Текущий уровень пользователя складывается из уровней каждой предметной области
         /// </summary>
-        public class Curent_User_Level
+        public class DBCurent_User_Level
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int Curent_Level_User { get; set; }
             /// <summary>
             /// Уровень пользователя в предметной области "Музыка"
@@ -171,11 +175,12 @@ namespace Web.Models
             public string Topic_Traffic_Laws { get; set; }
         }
 
-        /// <summary>
-        /// Ссылки на учебники
-        /// </summary>
-        public class LinksTutorials
+        ///// <summary>
+        ///// Ссылки на учебники
+        ///// </summary>
+        public class DBLinksTutorials
         {
+            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             /// <summary>
             /// Cсылка на музыку
             /// </summary>
@@ -210,6 +215,7 @@ namespace Web.Models
             public string Topic_Tutorials_Traffic_Laws { get; set; }
         }
 
+        [NotMapped]
         /// <summary>
         /// Добавление предложений по улучшению приложения
         /// </summary>
@@ -232,8 +238,6 @@ namespace Web.Models
             /// Что добавить в приложение
             /// </summary>
             public string Add_to_application { get; set; }
-
-            public virtual DBAdaptive_educational_application User { get; set; }
 
             public override string ToString()
             {
