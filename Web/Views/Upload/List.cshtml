@@ -6,33 +6,39 @@
 <h2>@ViewBag.Title</h2>
 @foreach (var application in Model)
 {
-    <div>
-        @application.UserName
+<div>
+    @application.UserName
+    @application.User_Picture
+    @application.Curent_Level_User
+    @application.Algebra_Level
+    @application.Geometry_Level
+    @application.Music_Level
+    @application.Traffic_Laws_Level
 
-        <table class="table table-bordered table-responsive table-hover">
-            <thead>
-                <tr>
-                    <td>Id</td>
-                    <td>Предметная область</td>
-                    <td>Пожелания</td>
-                    <td>На что сделать ссылку</td>
-                    <td>Что добавить в приложение</td>
-                </tr>
-            </thead>
-            @if (application.Journal != null)
+    <table class="table table-bordered table-responsive table-hover">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Предметная область</td>
+                <td>Пожелания</td>
+                <td>На что сделать ссылку</td>
+                <td>Что добавить в приложение</td>
+            </tr>
+        </thead>
+        @if (application.Journal != null)
+        {
+            foreach (var sm in application.Journal)
             {
-                foreach (var sm in application.Journal)
-                {
-                    <tr>
-                        @*<td><img src="Image?id=@sm.Id" /></td>*@
-                        <td>@sm.Subject_Area</td>
-                        <td>@sm.Wishes</td>
-                        <td>@sm.Proposed_link</td>
-                        <td>@sm.Add_to_application</td>
-                    </tr>
-                }
+                <tr>
+                    @*<td><img src="Image?id=@sm.Id" /></td>*@
+                    <td>@sm.Subject_Area</td>
+                    <td>@sm.Wishes</td>
+                    <td>@sm.Proposed_link</td>
+                    <td>@sm.Add_to_application</td>
+                </tr>
             }
-        </table>
-    </div>
+        }
+    </table>
+</div>
 }
 
