@@ -38,20 +38,16 @@ namespace Web.Models
         public class DBAdaptive_educational_application
         {
             [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public string User { get; set; }
-            [ForeignKey("User")]
-            /// <summary>
-            /// поле регистрации
-            /// </summary>
-            /// <returns></returns>
-            public DBRegistration Registration { get; set; }
+
+            //public int Id { get; set; }
+
             /// <summary>
             /// предметные области
             /// </summary>
-            /// <returns></returns>
-            public DBSubject_Areas Subject_Areas { get; set; }
+            /// <returns></returns>et; }
             /// <summary>
-            /// картинка пользователя в соответствии с его уровнем
+            /// картинка пользователя в соответствии с 
+            //public DBSubject_Areas Subject_Areas { get; sего уровнем
             /// </summary>
             /// <returns></returns>
             public byte[] User_Picture { get; set; }
@@ -60,16 +56,13 @@ namespace Web.Models
             /// </summary>
             /// <returns></returns>
             public DBCurent_User_Level Curent_User_Level { get; set; }
-            /// <summary>
-            /// Ссылки на учебники
-            /// </summary>
-            public DBLinksTutorials LinksTutorials { get; set; }
+
             /// <summary>
             /// Жунрал пожеланий
             /// </summary>
             public virtual Collection<dbSuggestion_for_improvements> Journal { get; set; }
 
-            public dbSuggestion_for_improvements Suggestion_for_improvements { get; set; }
+            //public dbSuggestion_for_improvements Suggestion_for_improvements { get; set; }
             public string UserName { get; set; }
             public int Traffic_Laws_Level { get; set; }
             public int Algebra_Level { get; set; }
@@ -78,61 +71,29 @@ namespace Web.Models
             public int Curent_Level_User { get; set; }
         }
 
-
-        /// <summary>
-        /// Поле регистрации
-        /// </summary>
-        public class DBRegistration
-        {
-            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            /// <summary>
-            /// Логин пользователя
-            /// </summary>
-            public string Login { get; set; }
-            /// <summary>
-            /// Пароль пользователя
-            /// </summary>
-            public string Password { get; set; }
-            /// <summary>
-            /// Индивидуальный номер пользователя
-            /// </summary>
-            public int UserID { get; set; }
-            /// <summary>
-            /// Имя пользователя
-            /// </summary>
-            // public string UserName { get; set; }
-            /// <summary>
-            /// Дата рождения пользователя
-            /// </summary>
-            public DateTime birthDate { get; set; }
-            /// <summary>
-            /// Пол пользователя
-            /// </summary>
-            public bool UserGender { get; set; }
-        }
-
-        /// <summary>
-        /// Предметные области
-        /// </summary>
-        public enum DBSubject_Areas
-        {
-            /// <summary>
-            /// Музыка
-            /// </summary>
-            Music,
-            /// <summary>
-            /// Алгебра
-            /// </summary>
-            Algebra,
-            /// <summary>
-            /// Геометрия
-            /// </summary>
-            Geometry,
-            /// <summary>
-            /// Правила дорожного движения (ПДД)
-            /// </summary>
-            Traffic_Laws,
-        }
+        ///// <summary>
+        ///// Предметные области
+        ///// </summary>
+        //public enum DBSubject_Areas
+        //{
+        //    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //    /// <summary>
+        //    /// Музыка
+        //    /// </summary>
+        //    Music,
+        //    /// <summary>
+        //    /// Алгебра
+        //    /// </summary>
+        //    Algebra,
+        //    /// <summary>
+        //    /// Геометрия
+        //    /// </summary>
+        //    Geometry,
+        //    /// <summary>
+        //    /// Правила дорожного движения (ПДД)
+        //    /// </summary>
+        //    Traffic_Laws,
+        //}
 
         /// <summary>
         /// Текущий уровень пользователя складывается из уровней каждой предметной области
@@ -175,46 +136,6 @@ namespace Web.Models
             public string Topic_Traffic_Laws { get; set; }
         }
 
-        ///// <summary>
-        ///// Ссылки на учебники
-        ///// </summary>
-        public class DBLinksTutorials
-        {
-            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            /// <summary>
-            /// Cсылка на музыку
-            /// </summary>
-            public string Url_Tutorials_Music { get; set; }
-            /// <summary>
-            /// Тема музыка
-            /// </summary>
-            public string Topic_Tutorials_Music { get; set; }
-            /// <summary>
-            /// Ссылка наа алгебру
-            /// </summary>
-            public string Url_Tutorials_Algebra { get; set; }
-            /// <summary>
-            /// Тема Алгебра
-            /// </summary>
-            public string Topic_Tutorials_Algebre { get; set; }
-            /// <summary>
-            /// Ссылка на геометрию
-            /// </summary>
-            public string Url_Tutorials_Geometry { get; set; }
-            /// <summary>
-            /// Тема Геометрия
-            /// </summary>
-            public string Topic_Tutorials_Geometry { get; set; }
-            /// <summary>
-            /// Ссылка на ПДД
-            /// </summary>
-            public string Url_Tutorials_Traffic_Laws { get; set; }
-            /// <summary>
-            /// Тема ПДД
-            /// </summary>
-            public string Topic_Tutorials_Traffic_Laws { get; set; }
-        }
-
         [NotMapped]
         /// <summary>
         /// Добавление предложений по улучшению приложения
@@ -222,6 +143,8 @@ namespace Web.Models
         public class dbSuggestion_for_improvements
         {
             [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
+            public virtual DBAdaptive_educational_application User { get; set; }
             /// <summary>
             /// Предметная область
             /// </summary>
