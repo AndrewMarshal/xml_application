@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Adaptive_educational_application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
@@ -15,7 +16,7 @@ namespace Web.Models
         public class AdaptiveApplicationDbContext : DbContext
         {
             public AdaptiveApplicationDbContext()
-            { 
+            {
                 Database.EnsureCreated();
             }
 
@@ -23,13 +24,13 @@ namespace Web.Models
             {
             }
 
-            public DbSet<DBAdaptive_educational_application> User { get; set; }
+            public DbSet<DBAdaptive_educational_application> Adaptive { get; set; }
 
             public static string ConnectionString { get; set; }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseNpgsql(ConnectionString);
+                optionsBuilder.UseNpgsql(AdaptiveApplicationDbContext.ConnectionString);
 
                 base.OnConfiguring(optionsBuilder);
             }
@@ -38,7 +39,7 @@ namespace Web.Models
         public class DBAdaptive_educational_application
         {
             [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
+            public int Id { get; set; }
             //public int Id { get; set; }
 
             /// <summary>
@@ -55,12 +56,12 @@ namespace Web.Models
             /// Текущий уровень пользователя
             /// </summary>
             /// <returns></returns>
-            public DBCurent_User_Level Curent_User_Level { get; set; }
+            //public Curent_User_Level Curent_User_Level { get; set; }
 
             /// <summary>
             /// Жунрал пожеланий
             /// </summary>
-            public virtual Collection<dbSuggestion_for_improvements> Journal { get; set; }
+            public virtual Collection<DbSuggestion_for_improvements> Journal { get; set; }
 
             //public dbSuggestion_for_improvements Suggestion_for_improvements { get; set; }
             public string UserName { get; set; }
@@ -98,53 +99,62 @@ namespace Web.Models
         /// <summary>
         /// Текущий уровень пользователя складывается из уровней каждой предметной области
         /// </summary>
-        public class DBCurent_User_Level
-        {
-            [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public int Curent_Level_User { get; set; }
-            /// <summary>
-            /// Уровень пользователя в предметной области "Музыка"
-            /// </summary>
-            public int Music_Level { get; set; }
-            /// <summary>
-            /// Уровень пользователя в предметной области "Алгебра"
-            /// </summary>
-            public int Algebra_Level { get; set; }
-            /// <summary>
-            /// Уровень пользователя в предметной области "Геометрия"
-            /// </summary>
-            public int Geometry_Level { get; set; }
-            /// <summary>
-            /// Уровень пользователя в предметной области "ПДД"
-            /// </summary>
-            public int Traffic_Laws_Level { get; set; }
-            /// <summary>
-            /// Тема "музыка"
-            /// </summary>
-            public string Topic_Music { get; set; }
-            /// <summary>
-            /// Тема "алгебра"
-            /// </summary>
-            public string Topic_Algebra { get; set; }
-            /// <summary>
-            /// Тема "геометрия"
-            /// </summary>
-            public string Topic_Geometry { get; set; }
-            /// <summary>
-            /// Тема "ПДД"
-            /// </summary>
-            public string Topic_Traffic_Laws { get; set; }
-        }
+        //public class DBCurent_User_Level
+        //{
+        //    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //    public int Id { get; set; }
 
-        [NotMapped]
+        //    public int Adaptive_educational_applicationId { get; set; }
+        //    [ForeignKey("Adaptive_educational_applicationId")]
+        //    public virtual DBAdaptive_educational_application Adaptive_educational_application { get; set; }
+
+        //    public int Curent_Level_User { get; set; }
+        //    /// <summary>
+        //    /// Уровень пользователя в предметной области "Музыка"
+        //    /// </summary>
+        //    public int Music_Level { get; set; }
+        //    /// <summary>
+        //    /// Уровень пользователя в предметной области "Алгебра"
+        //    /// </summary>
+        //    public int Algebra_Level { get; set; }
+        //    /// <summary>
+        //    /// Уровень пользователя в предметной области "Геометрия"
+        //    /// </summary>
+        //    public int Geometry_Level { get; set; }
+        //    /// <summary>
+        //    /// Уровень пользователя в предметной области "ПДД"
+        //    /// </summary>
+        //    public int Traffic_Laws_Level { get; set; }
+        //    /// <summary>
+        //    /// Тема "музыка"
+        //    /// </summary>
+        //    public string Topic_Music { get; set; }
+        //    /// <summary>
+        //    /// Тема "алгебра"
+        //    /// </summary>
+        //    public string Topic_Algebra { get; set; }
+        //    /// <summary>
+        //    /// Тема "геометрия"
+        //    /// </summary>
+        //    public string Topic_Geometry { get; set; }
+        //    /// <summary>
+        //    /// Тема "ПДД"
+        //    /// </summary>
+        //    public string Topic_Traffic_Laws { get; set; }
+        //}
+
         /// <summary>
         /// Добавление предложений по улучшению приложения
         /// </summary>
-        public class dbSuggestion_for_improvements
+        public class DbSuggestion_for_improvements
         {
             [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int Id { get; set; }
 
-            public virtual DBAdaptive_educational_application User { get; set; }
+            public int Adaptive_educational_applicationId { get; set; }
+            [ForeignKey("Adaptive_educational_applicationId")]
+            public virtual DBAdaptive_educational_application Adaptive_educational_application { get; set; }
+
             /// <summary>
             /// Предметная область
             /// </summary>

@@ -17,18 +17,18 @@ namespace Adaptive_application_Web.Controllers
 {
     public class UploadController : Controller
     {
-        public static string ToStringJury(List<string> juri)
-        {
+        //public static string ToStringJury(List<string> juri)
+        //{
 
-            string stroka = "";
-            foreach (var e in juri)
-            {
-                stroka = stroka + e;
-                stroka += ", ";
-            }
+        //    string stroka = "";
+        //    foreach (var e in juri)
+        //    {
+        //        stroka = stroka + e;
+        //        stroka += ", ";
+        //    }
 
-            return stroka;
-        }
+        //    return stroka;
+        //}
 
         // GET: Upload
         public ActionResult Index()
@@ -56,11 +56,12 @@ namespace Adaptive_application_Web.Controllers
                         Geometry_Level = application.Geometry_Level,
                         Music_Level = application.Music_Level,
                         Curent_Level_User = application.Curent_Level_User,
+                        //Curent_User_Level = application.Curent_User_Level
                     };
-                    dbs.Journal = new Collection<dbSuggestion_for_improvements>();
+                    dbs.Journal = new Collection<DbSuggestion_for_improvements>();
                     foreach (var suggestion in application.Journal)
                     {
-                        dbs.Journal.Add(new dbSuggestion_for_improvements()
+                        dbs.Journal.Add(new DbSuggestion_for_improvements()
                         {
                             Subject_Area = suggestion.Subject_Area,
                             Wishes = suggestion.Wishes,
@@ -69,27 +70,27 @@ namespace Adaptive_application_Web.Controllers
                         });
                     }
 
-                    db.User.Add(dbs);
+                    db.Adaptive.Add(dbs);
                     db.SaveChanges();
                 }
                 return View(application);
             }
         }
 
-        public ActionResult Image(int id)
-        {
-            using (var db = new AdaptiveApplicationDbContext())
-            {
-                return base.File(db.User.Find(id).User_Picture, "image/jpeg");
-            }
-        }
+        //public ActionResult Image(int id)
+        //{
+        //    using (var db = new AdaptiveApplicationDbContext())
+        //    {
+        //        return base.File(db.DUser.Find(id).User_Picture, "image/jpeg");
+        //    }
+        //}
 
         public ActionResult List()
         {
             List<DBAdaptive_educational_application> list;
             using (var db = new AdaptiveApplicationDbContext())
             {
-                list = db.User.Include(s => s.Journal).ToList();
+                list = db.Adaptive.Include(s => s.Journal).ToList();
             }
 
             return View(list);
